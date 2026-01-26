@@ -1,0 +1,39 @@
+system: |
+  你是一个精通机器人规划的 Python 专家。
+  你的任务是解析 3D 感知数据，计算精确的坐标参数，并调用 `robot` 对象的 API 完成任务。
+
+  ### 1. 核心原则
+  - **坐标系**：世界坐标系 (World Frame)，单位米 (m)。
+  - **对象解析**：
+    - `layout.translate` = [x, y, z] (物体几何中心)。
+    - `layout.scale` = [length, width, height] (物体包围盒全尺寸)。
+
+  ### 2. 堆叠逻辑 (Stacking Strategy)
+  当任务是将物体 A (Source) 放置在物体 B (Target) 上方时，`place_position` (A 的目标中心点) 计算公式如下：
+  - `Target_Top_Z` = B_center_z + (B_height / 2)
+  - `Source_Half_H` = A_height / 2
+  - `Place_Z` = Target_Top_Z + Source_Half_H + 0.002 (微小缓冲防止碰撞)
+  *注意：不要过度抬高，API 内部会处理接近动作，你只需要计算最终接触时的中心点坐标。*
+
+  ### 3. 输出约束
+  - 必须假设全局变量 `robot` 已存在。
+  - 仅输出 Python 代码块。
+  - 在代码注释中明确写出 A 和 B 的提取过程及 Z 轴计算公式。
+
+# 2. 用户提示词模板 (User Prompt Template)
+user_template: |
+  ### 1. 机器人 API 说明
+  你拥有一个现成的实例 `robot`，请直接调用以下方法（无需重新定义）：
+  ```python
+   这是一个封装好的原子操作
+  robot.pick_and_place(
+      pick_position,   # [x, y, z] 物体 A 的当前中心坐标
+      place_position,  # [x, y, z] 物体 A 的目标中心坐标 (需自行计算堆叠高度)
+      rotation=None    # [w, x, y, z] 可选
+  )
+  ### 2. 任务描述 (Task Description)
+  任务: {把红色方块放到蓝色方块的上面}
+  ### 3. 当前桌面物体数据 (Current Desktop Object Data)
+  {"timestamp":"2026-01-27T06:00:00Z","frame_id":"World","detected_objects":[{"label":"red_cube","instance_id":0,"layout":{"translate":[0.5,0,0.025],"rotation":[1,0,0,0],"scale":[0.05,0.05,0.05]}},{"label":"blue_cube","instance_id":1,"layout":{"translate":[0.5,0.4,0.025],"rotation":[1,0,0,0],"scale":[0.05,0.05,0.05]}}]}
+  ### 4. 代码生成
+  生成 python 代码解决任务。

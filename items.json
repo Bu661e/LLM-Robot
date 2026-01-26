@@ -1,0 +1,50 @@
+{
+    "timestamp": "2026-01-27T06:00:00Z",
+    "frame_id": "World",
+    "detected_objects": [
+        {
+            "label": "red_cube",
+            "instance_id": 101,
+            "layout": {
+                "translate": [
+                    0.5,
+                    0.0,
+                    0.025
+                ],
+                "rotation": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.05,
+                    0.05,
+                    0.05
+                ]
+            }
+        },
+        {
+            "label": "blue_cube",
+            "instance_id": 102,
+            "layout": {
+                "translate": [
+                    0.5,
+                    0.4,
+                    0.025
+                ],
+                "rotation": [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    0.05,
+                    0.05,
+                    0.05
+                ]
+            }
+        }
+    ]
+}
