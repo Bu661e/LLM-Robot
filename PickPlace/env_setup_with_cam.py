@@ -41,7 +41,7 @@ class PickPlaceTaskWithCam(BaseTask):
         self._camera = Camera(
             prim_path="/World/GlobalCamera",
             name="global_camera",
-            position=np.array([0, 0.5, 2.5]),
+            position=np.array([0, 0.5, 5]),
             orientation=np.array([1.0, 0.0, 0.0, 0.0]),
             frequency=30,
             resolution=(640, 480),
