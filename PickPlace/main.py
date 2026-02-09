@@ -7,6 +7,7 @@ simulation_app = SimulationApp({"headless": False})
 
 from isaacsim.core.api import World
 from env_setup import PickPlaceTask
+form env_setup_with_cam import PickPlaceTaskWithCam
 from robot_api import LLMRobotWrapper
 
 # 2. 环境初始化
@@ -14,7 +15,9 @@ my_world = World(stage_units_in_meters=1.0)
 my_world.scene.add_default_ground_plane()
 
 # 3. 添加任务
-my_task = PickPlaceTask(name="my_pick_place_task")
+# my_task = PickPlaceTask(name="my_pick_place_task")
+my_task = PickPlaceTaskWithCam(name="my_pick_place_task")
+
 my_world.add_task(my_task)
 
 # 4. 重置与预热
